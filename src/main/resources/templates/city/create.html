@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Country</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Create City</h2>
+    <span th:text="${message}"></span>
+    <form th:action="@{/city/create}" th:object="${city}" method="post">
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control" placeholder="Enter name" th:field="*{name}">
+        </div>
+        <div class="form-group">
+            <label>Country:</label>
+            <select th:field="*{country}">
+                <option th:each="c:${country}"
+                        th:value="${c.id}"
+                        th:text="${c.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Acreage:</label>
+            <input type="text" class="form-control" placeholder="Enter name" th:field="*{acreage}">
+        </div>
+        <div class="form-group">
+            <label>Population:</label>
+            <input type="text" class="form-control" placeholder="Enter name" th:field="*{population}">
+        </div>
+        <div class="form-group">
+            <label>GDP:</label>
+            <input type="text" class="form-control" placeholder="Enter name" th:field="*{gdb}">
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            <input type="text" class="form-control" placeholder="Enter name" th:field="*{description}">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+</body>
+</html>
