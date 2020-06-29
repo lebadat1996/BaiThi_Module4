@@ -9,7 +9,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit" >Search</button>
+</form>
 <div class="container">
     <h2>List Country</h2>
     <table class="table table-striped">
@@ -24,7 +27,7 @@
         <tbody>
         <tr th:each="city :${cities}">
             <td th:text="${city.id}"></td>
-            <td><a th:href="@{/city/showId/{id}(id=${city.id})}">City</a></td>
+            <td><a th:href="@{/city/showId/{id}(id=${city.id})}" th:text="${city.name}">City</a></td>
             <td th:text="${city.country.name}"></td>
             <td><a th:href="@{/city/showEdit/{id}(id=${city.id})}">Edit</a></td>
             <td><a th:href="@{/city/delete/{id}(id=${city.id})}">Delete</a></td>

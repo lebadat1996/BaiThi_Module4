@@ -6,6 +6,9 @@ import com.codegym.repository.ICityRepository;
 import com.codegym.service.city.ICityService;
 import com.codegym.service.country.ICountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,13 +29,29 @@ public class CityController {
         return countryService.findAll();
     }
 
+//    @GetMapping("/list")
+//    public ModelAndView showList() {
+//        ModelAndView modelAndView = new ModelAndView("city/list");
+//        Iterable<City> cities = cityService.findAll();
+//        modelAndView.addObject("cities", cities);
+//        return modelAndView;
+//    }
     @GetMapping("/list")
-    public ModelAndView showList() {
+    public ModelAndView ListCity(@RequestParam("s") Optional<String> s,
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<City> cities;
+        if (s.isPresent()) {
+            cities = cityService.findAllByCityNameContaining(s.get(), pageable);
+        } else {
+            cities = cityService.findAll(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("city/list");
-        Iterable<City> cities = cityService.findAll();
         modelAndView.addObject("cities", cities);
         return modelAndView;
     }
+
 
     @GetMapping("/create")
     public ModelAndView showCreate() {
